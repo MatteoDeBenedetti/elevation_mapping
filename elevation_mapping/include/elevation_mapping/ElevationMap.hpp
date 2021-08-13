@@ -10,6 +10,7 @@
 
 // Grid Map
 #include <grid_map_ros/grid_map_ros.hpp>
+#include <grid_map_pcl/grid_map_pcl.hpp>
 
 // Eigen
 #include <Eigen/Core>
@@ -300,6 +301,7 @@ class ElevationMap {
 
   //! ROS publishers. Publishing of the raw elevation map is handled by the postprocessing pool.
   ros::Publisher elevationMapFusedPublisher_;
+  ros::Publisher elevationMapFusedPublisher_pcl_;
   ros::Publisher visibilityCleanupMapPublisher_;
 
   //! Mutex lock for fused map.

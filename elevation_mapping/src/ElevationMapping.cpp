@@ -359,7 +359,7 @@ void ElevationMapping::pointCloudCallback(const sensor_msgs::PointCloud2ConstPtr
         ROS_ERROR("The oldest pose available is at %f, requested pose at %f", robotPoseCache_.getOldestTime().toSec(),
                   lastPointCloudUpdateTime_.toSec());
       } else {
-        ROS_ERROR("Could not get pose information from robot for time %f. Buffer empty?", lastPointCloudUpdateTime_.toSec());
+        ROS_ERROR("PCL callback: Could not get pose information from robot for time %f. Buffer empty?", lastPointCloudUpdateTime_.toSec());
       }
       return;
     }
@@ -504,7 +504,7 @@ bool ElevationMapping::updatePrediction(const ros::Time& time) {
       ROS_ERROR("The oldest pose available is at %f, requested pose at %f", robotPoseCache_.getOldestTime().toSec(),
                 lastPointCloudUpdateTime_.toSec());
     } else {
-      ROS_ERROR("Could not get pose information from robot for time %f. Buffer empty?", lastPointCloudUpdateTime_.toSec());
+      ROS_ERROR("Pose Callback: Could not get pose information from robot for time %f. Buffer empty?", lastPointCloudUpdateTime_.toSec());
     }
     return false;
   }

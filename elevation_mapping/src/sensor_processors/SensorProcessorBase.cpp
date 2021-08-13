@@ -115,7 +115,9 @@ bool SensorProcessorBase::updateTransformations(const ros::Time& timeStamp) {
 
     return true;
   } catch (tf::TransformException& ex) {
-    if (!firstTfAvailable_) {
+    if (!firstTfAvailable_) 
+    {
+      ROS_ERROR("%s", ex.what());
       return false;
     }
     ROS_ERROR("%s", ex.what());

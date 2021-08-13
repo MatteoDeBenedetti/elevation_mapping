@@ -55,6 +55,7 @@ ElevationMap::ElevationMap(ros::NodeHandle nodeHandle)
   clear();
 
   elevationMapFusedPublisher_ = nodeHandle_.advertise<grid_map_msgs::GridMap>("elevation_map", 1);
+  elevationMapFusedPublisher_pcl_ = nodeHandle_.advertise<sensor_msgs::PointCloud2>("elevation_map_pcl", 1);
   if (!underlyingMapTopic_.empty()) {
     underlyingMapSubscriber_ = nodeHandle_.subscribe(underlyingMapTopic_, 1, &ElevationMap::underlyingMapCallback, this);
   }
@@ -578,6 +579,11 @@ bool ElevationMap::publishFusedElevationMap() {
   grid_map::GridMapRosConverter::toMessage(fusedMapCopy, message);
   elevationMapFusedPublisher_.publish(message);
   ROS_DEBUG("Elevation map (fused) has been published.");
+
+  sensor_msgs::PointCloud2 message_pcl;
+  // grid_map_pcl::
+  elevationMapFusedPublisher_pcl_.publish(message_pcl);
+
   return true;
 }
 
