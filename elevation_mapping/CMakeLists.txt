@@ -11,6 +11,7 @@ set(
     eigen_conversions
     grid_map_core
     grid_map_ros
+    grid_map_pcl
     grid_map_msgs
     kindr
     kindr_ros

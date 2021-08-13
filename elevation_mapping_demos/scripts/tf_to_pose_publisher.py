@@ -20,7 +20,7 @@ def callback(newPose):
 
     # Create and fill pose message for publishing
     pose = geometry_msgs.msg.PoseWithCovarianceStamped()
-    pose.header.stamp = rospy.Time(0)
+    pose.header.stamp = rospy.Time.now() #(0)
     pose.header.frame_id = from_frame
     pose.pose.pose.position.x = trans[0]
     pose.pose.pose.position.y = trans[1]
