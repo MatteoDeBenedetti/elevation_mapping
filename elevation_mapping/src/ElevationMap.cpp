@@ -18,6 +18,10 @@
 #include "elevation_mapping/PointXYZRGBConfidenceRatio.hpp"
 #include "elevation_mapping/WeightedEmpiricalCumulativeDistributionFunction.hpp"
 
+#include <grid_map_ros/GridMapRosConverter.hpp>
+#include <sensor_msgs/point_cloud_conversion.h>
+#include <sensor_msgs/PointCloud.h>
+
 namespace {
 /**
  * Store an unsigned integer value in a float
@@ -568,9 +572,9 @@ bool ElevationMap::publishRawElevationMap() {
 }
 
 bool ElevationMap::publishFusedElevationMap() {
-  if (!hasFusedMapSubscribers()) {
-    return false;
-  }
+  // if (!hasFusedMapSubscribers()) {
+  //   return false;
+  // }
   boost::recursive_mutex::scoped_lock scopedLock(fusedMapMutex_);
   grid_map::GridMap fusedMapCopy = fusedMap_;
   scopedLock.unlock();
@@ -581,8 +585,13 @@ bool ElevationMap::publishFusedElevationMap() {
   ROS_DEBUG("Elevation map (fused) has been published.");
 
   sensor_msgs::PointCloud2 message_pcl;
-  // grid_map_pcl::
+  const std::string pointLayer = "elevation";
+  grid_map::GridMapRosConverter::toPointCloud(fusedMapCopy, pointLayer, message_pcl);
   elevationMapFusedPublisher_pcl_.publish(message_pcl);
+
+  // sensor_msgs::PointCloud message_plc;
+  // sensor_msgs::convertPointCloud2ToPointCloud(message_pcl2, message_plc);
+  // elevationMapFusedPublisher_pcl2_.publish(message_plc);
 
   return true;
 }
