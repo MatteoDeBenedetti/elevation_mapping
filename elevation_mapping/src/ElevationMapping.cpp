@@ -454,9 +454,9 @@ void ElevationMapping::mapUpdateTimerCallback(const ros::TimerEvent&) {
 }
 
 void ElevationMapping::publishFusedMapCallback(const ros::TimerEvent&) {
-  if (!map_.hasFusedMapSubscribers()) {
-    return;
-  }
+  // if (!map_.hasFusedMapSubscribers()) {
+  //   return;
+  // }
   ROS_DEBUG("Elevation map is fused and published from timer.");
   boost::recursive_mutex::scoped_lock scopedLock(map_.getFusedDataMutex());
   map_.fuseAll();
@@ -477,7 +477,7 @@ bool ElevationMapping::fuseEntireMapServiceCallback(std_srvs::Empty::Request&, s
 }
 
 bool ElevationMapping::isFusingEnabled() {
-  return isContinuouslyFusing_ && map_.hasFusedMapSubscribers();
+  return isContinuouslyFusing_; //&& map_.hasFusedMapSubscribers();
 }
 
 bool ElevationMapping::updatePrediction(const ros::Time& time) {
